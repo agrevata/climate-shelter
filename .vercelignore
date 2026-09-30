@@ -7,8 +7,8 @@ coverage
 .env*
 firmware
 docs
-supabase
-tests
+/supabase
+/tests
 infra
 compose.yaml
 **/secrets.h
