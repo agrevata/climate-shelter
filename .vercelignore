@@ -1,0 +1,15 @@
+node_modules
+.next
+.test-build
+work
+artifacts
+coverage
+.env*
+firmware
+docs
+supabase
+tests
+infra
+compose.yaml
+**/secrets.h
+**/secrets.json

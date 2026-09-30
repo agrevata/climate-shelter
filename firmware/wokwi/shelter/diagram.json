@@ -1,0 +1,484 @@
+{
+  "version": 1,
+  "author": "Surya Kusuma",
+  "editor": "wokwi",
+  "parts": [
+    {
+      "type": "wokwi-breadboard",
+      "id": "bb1",
+      "top": 200,
+      "left": 0,
+      "attrs": {}
+    },
+    {
+      "type": "board-esp32-devkit-c-v4",
+      "id": "esp",
+      "top": 200,
+      "left": -190,
+      "attrs": {}
+    },
+    {
+      "type": "wokwi-dht22",
+      "id": "dht1",
+      "top": -30,
+      "left": 0,
+      "attrs": {
+        "temperature": "24",
+        "humidity": "65"
+      }
+    },
+    {
+      "type": "wokwi-resistor",
+      "id": "dhtPullup",
+      "top": 100,
+      "left": 60,
+      "attrs": {
+        "value": "10000"
+      }
+    },
+    {
+      "type": "wokwi-slide-potentiometer",
+      "id": "co2",
+      "top": 10,
+      "left": 150,
+      "attrs": {
+        "travelLength": "30",
+        "value": "256"
+      }
+    },
+    {
+      "type": "wokwi-slide-potentiometer",
+      "id": "pm25",
+      "top": 10,
+      "left": 340,
+      "attrs": {
+        "travelLength": "30",
+        "value": "128"
+      }
+    },
+    {
+      "type": "wokwi-slide-potentiometer",
+      "id": "pcm",
+      "top": 10,
+      "left": 530,
+      "attrs": {
+        "travelLength": "30",
+        "value": "384"
+      }
+    },
+    {
+      "type": "wokwi-photoresistor-sensor",
+      "id": "ldr1",
+      "top": -10,
+      "left": 750,
+      "attrs": {
+        "lux": "500",
+        "gamma": "0.7",
+        "rl10": "50"
+      }
+    },
+    {
+      "type": "wokwi-pir-motion-sensor",
+      "id": "pir1",
+      "top": 220,
+      "left": 750,
+      "attrs": {}
+    },
+    {
+      "type": "wokwi-led",
+      "id": "fanLed",
+      "top": 540,
+      "left": 30,
+      "attrs": {
+        "color": "green",
+        "label": "FAN"
+      }
+    },
+    {
+      "type": "wokwi-resistor",
+      "id": "fanR",
+      "top": 500,
+      "left": 20,
+      "attrs": {
+        "value": "220"
+      }
+    },
+    {
+      "type": "wokwi-relay-module",
+      "id": "pumpRelay",
+      "top": 530,
+      "left": 530,
+      "attrs": {
+        "transistor": "npn"
+      }
+    },
+    {
+      "type": "wokwi-led",
+      "id": "pumpLed",
+      "top": 590,
+      "left": 750,
+      "attrs": {
+        "color": "blue",
+        "label": "POMPA AIR"
+      }
+    },
+    {
+      "type": "wokwi-resistor",
+      "id": "pumpR",
+      "top": 555,
+      "left": 740,
+      "attrs": {
+        "value": "220"
+      }
+    },
+    {
+      "type": "wokwi-slide-switch",
+      "id": "tankSwitch",
+      "top": 730,
+      "left": 530,
+      "attrs": {}
+    },
+    {
+      "type": "wokwi-text",
+      "id": "title",
+      "top": -130,
+      "left": 0,
+      "attrs": {
+        "text": "CANDIGARON 01 | SHELTER | KIPAS + POMPA AIR",
+        "color": "#4fb8e7"
+      }
+    },
+    {
+      "type": "wokwi-text",
+      "id": "labels",
+      "top": -65,
+      "left": 140,
+      "attrs": {
+        "text": "CO2 (34)             PM2.5 (35)             PCM (32)             LDR (33)"
+      }
+    },
+    {
+      "type": "wokwi-text",
+      "id": "topRail",
+      "top": 140,
+      "left": 30,
+      "attrs": {
+        "text": "RAIL ATAS: 3.3V + GND  |  merah=daya, hitam=GND, biru=analog"
+      }
+    },
+    {
+      "type": "wokwi-text",
+      "id": "bottomRail",
+      "top": 455,
+      "left": 30,
+      "attrs": {
+        "text": "RAIL BAWAH: 5V + GND  |  hijau=digital, oranye=aktuator"
+      }
+    },
+    {
+      "type": "wokwi-text",
+      "id": "pumpLabel",
+      "top": 675,
+      "left": 460,
+      "attrs": {
+        "text": "TANDON -> RELAY GPIO22 -> POMPA -> KIPAS\nLED biru = pompa simulasi (kontak NO)"
+      }
+    },
+    {
+      "type": "wokwi-text",
+      "id": "tankLabel",
+      "top": 770,
+      "left": 460,
+      "attrs": {
+        "text": "SAKELAR TANDON GPIO21\nKIRI=berisi / KANAN=kosong\nAUTO: ON >26.7C | OFF <=26.2C"
+      }
+    }
+  ],
+  "connections": [
+    [
+      "esp:TX",
+      "$serialMonitor:RX",
+      "",
+      []
+    ],
+    [
+      "esp:RX",
+      "$serialMonitor:TX",
+      "",
+      []
+    ],
+    [
+      "esp:3V3",
+      "bb1:tp.1",
+      "red",
+      [
+        "h-25",
+        "v-50"
+      ]
+    ],
+    [
+      "esp:GND.1",
+      "bb1:tn.1",
+      "black",
+      [
+        "h-35",
+        "v-35"
+      ]
+    ],
+    [
+      "esp:5V",
+      "bb1:bp.1",
+      "red",
+      [
+        "h-25",
+        "v45"
+      ]
+    ],
+    [
+      "esp:GND.2",
+      "bb1:bn.1",
+      "black",
+      [
+        "h35",
+        "v50"
+      ]
+    ],
+    [
+      "bb1:tn.2",
+      "bb1:bn.2",
+      "black",
+      [
+        "h-35"
+      ]
+    ],
+    [
+      "dht1:VCC",
+      "bb1:tp.5",
+      "red",
+      []
+    ],
+    [
+      "dht1:GND",
+      "bb1:tn.5",
+      "black",
+      []
+    ],
+    [
+      "dht1:SDA",
+      "esp:4",
+      "green",
+      [
+        "v30",
+        "h-140"
+      ]
+    ],
+    [
+      "dht1:SDA",
+      "dhtPullup:1",
+      "green",
+      []
+    ],
+    [
+      "dhtPullup:2",
+      "bb1:tp.8",
+      "red",
+      []
+    ],
+    [
+      "co2:VCC",
+      "bb1:tp.12",
+      "red",
+      []
+    ],
+    [
+      "co2:GND",
+      "bb1:tn.12",
+      "black",
+      []
+    ],
+    [
+      "co2:SIG",
+      "esp:34",
+      "blue",
+      [
+        "v95",
+        "h-360"
+      ]
+    ],
+    [
+      "pm25:VCC",
+      "bb1:tp.24",
+      "red",
+      []
+    ],
+    [
+      "pm25:GND",
+      "bb1:tn.24",
+      "black",
+      []
+    ],
+    [
+      "pm25:SIG",
+      "esp:35",
+      "blue",
+      [
+        "v85",
+        "h-540"
+      ]
+    ],
+    [
+      "pcm:VCC",
+      "bb1:tp.36",
+      "red",
+      []
+    ],
+    [
+      "pcm:GND",
+      "bb1:tn.36",
+      "black",
+      []
+    ],
+    [
+      "pcm:SIG",
+      "esp:32",
+      "blue",
+      [
+        "v75",
+        "h-720"
+      ]
+    ],
+    [
+      "ldr1:VCC",
+      "bb1:tp.48",
+      "red",
+      []
+    ],
+    [
+      "ldr1:GND",
+      "bb1:tn.48",
+      "black",
+      []
+    ],
+    [
+      "ldr1:AO",
+      "esp:33",
+      "blue",
+      [
+        "h35",
+        "v160",
+        "h-1010"
+      ]
+    ],
+    [
+      "pir1:VCC",
+      "bb1:bp.48",
+      "red",
+      []
+    ],
+    [
+      "pir1:GND",
+      "bb1:bn.48",
+      "black",
+      []
+    ],
+    [
+      "pir1:OUT",
+      "esp:27",
+      "green",
+      [
+        "h60",
+        "v220",
+        "h-1100"
+      ]
+    ],
+    [
+      "esp:25",
+      "fanR:1",
+      "orange",
+      [
+        "h-40",
+        "v170"
+      ]
+    ],
+    [
+      "fanR:2",
+      "fanLed:A",
+      "orange",
+      []
+    ],
+    [
+      "fanLed:C",
+      "bb1:bn.5",
+      "black",
+      []
+    ],
+    [
+      "pumpRelay:VCC",
+      "bb1:bp.36",
+      "red",
+      []
+    ],
+    [
+      "pumpRelay:GND",
+      "bb1:bn.36",
+      "black",
+      []
+    ],
+    [
+      "pumpRelay:IN",
+      "esp:22",
+      "orange",
+      [
+        "h-45",
+        "v-90"
+      ]
+    ],
+    [
+      "pumpRelay:COM",
+      "bb1:bp.44",
+      "red",
+      []
+    ],
+    [
+      "pumpRelay:NO",
+      "pumpR:1",
+      "orange",
+      []
+    ],
+    [
+      "pumpR:2",
+      "pumpLed:A",
+      "orange",
+      []
+    ],
+    [
+      "pumpLed:C",
+      "bb1:bn.44",
+      "black",
+      []
+    ],
+    [
+      "tankSwitch:2",
+      "esp:21",
+      "green",
+      [
+        "v40",
+        "h-720"
+      ]
+    ],
+    [
+      "tankSwitch:1",
+      "bb1:bn.40",
+      "black",
+      [
+        "h-25"
+      ]
+    ]
+  ],
+  "serialMonitor": {
+    "display": "always",
+    "newline": "lf",
+    "convertEol": true
+  },
+  "dependencies": {}
+}
