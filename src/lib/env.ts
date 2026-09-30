@@ -1,5 +1,5 @@
 // Vercel must never serve in-memory demo sessions or local JSON telemetry.
-export const isDemo = process.env.VERCEL !== "1" && process.env.NEXT_PUBLIC_DEMO_MODE !== "false";
+export const isDemo = process.env.NEXT_PUBLIC_DEMO_MODE === "true";
 export function publicSupabaseConfig() {
   const url = process.env.NEXT_PUBLIC_SUPABASE_URL;
   const key = process.env.NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY || process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
